@@ -60,6 +60,7 @@
 
 <main>
   
+  <div class="timer-display">
   {#if workTime === true}
     <p>TIME TO WORK</p>
   {:else if workTime === false}
@@ -68,13 +69,17 @@
 
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div on:click={toggleTimer}>
+  <div style="font-size: 50px;">
     {formatTimer(displayedTimer)}
   </div>
-  <button on:click={startTimer}>Start</button>
-  <button on:click={pauseTimer}>Pause</button>
-  <button on:click={handleClick}>Reset</button>
+  <div class="btn-container">
+    <button on:click={startTimer}>Start</button>
+    <button on:click={pauseTimer}>Pause</button>
+    <button on:click={handleClick}>Reset</button>
+  </div>
+</div>
 
+<div class="timer-form">
   <div>
     <label for="workInput">Work Duration:</label>
     <input type="numeric" id="workInput" required bind:value={workInput}>
@@ -84,4 +89,26 @@
     <input type="numeric" id="breakInput" required bind:value={breakInput}>
   </div>
   <button on:click={handleClick}>Set Timer</button>
+</div>
 </main>
+
+<style>
+  main {
+    display: flex;
+    gap: 10vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+  }
+
+  .timer-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+</style>
