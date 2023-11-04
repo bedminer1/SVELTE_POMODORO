@@ -7,6 +7,7 @@
   let timerOn = false
   let workTime = true
   let cycleCount = 0
+  let timerInputVisible = true
 
   //reactive values
   $: workTimer = 60000 * workInput
@@ -14,6 +15,14 @@
   $: displayedTimer = workTimer
   
   const handleClick = () => {
+    toggleInput()
+  }
+
+  function toggleInput() {
+    timerInputVisible = !timerInputVisible
+  }
+
+  function resetTimer() {
     displayedTimer = workTimer
     workTime = true
     pauseTimer()
@@ -79,22 +88,25 @@
         <div class="btn-container">
           <button style="font-size: 15px;" on:click={startTimer}>▶</button>
           <button style="font-size: 12px;" on:click={pauseTimer}>▐▐</button>
-          <button style="font-size: 20px;" on:click={handleClick}>↩</button>
+          <button style="font-size: 20px;" on:click={resetTimer}>↩</button>
         </div>
         <div style="margin-top: 20px;">
             CYCLES COMPLETED: {cycleCount}
         </div>
       </div>
 
+    
       <div class="timer-form">
+        {#if timerInputVisible}
         <div class="input-container">
           <label for="workInput">Work Duration:</label>
-          <input type="numeric" id="workInput" required bind:value={workInput}>
+          <input type="numeric" id="workInput" required min="1" bind:value={workInput}>
         </div>
         <div class="input-container">
           <label for="breakInput">Break Duration:</label>
           <input type="numeric" id="breakInput" required bind:value={breakInput}>
         </div>
+        {/if}
         <button on:click={handleClick} style="width: 80px; font-size:medium">Set Timer</button>
       </div>
 </div>
