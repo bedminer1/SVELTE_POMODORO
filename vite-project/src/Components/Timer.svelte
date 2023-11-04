@@ -153,6 +153,7 @@
 
   h1 {
     font-size: 70px;
+    text-align: center;
   }
 
   input {
