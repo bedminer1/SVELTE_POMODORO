@@ -6,13 +6,18 @@
   let timerInterval
   let timerOn = false
   let workTime = true
-  let cycleCount = 0
+  let cycleCount = 0 
   let timerInputVisible = true
 
   //reactive values
   $: workTimer = 60000 * workInput
   $: breakTimer = 60000 * breakInput
   $: displayedTimer = workTimer
+
+  function beep() {
+    var snd = new Audio("https://s3-us-west-2.amazonaws.com/s.cdpn.io/241793/airhorn.mp3");  
+    snd.play();
+  }
   
   const handleClick = () => {
     toggleInput()
@@ -44,11 +49,13 @@
     if (workTime === true) {
     displayedTimer = breakTimer
     workTime = false
+    beep()
   } else if (workTime === false) {
     displayedTimer = workTimer
     workTime = true
     cycleCount += 1
     pauseTimer()
+    beep()
   }
   }
 
